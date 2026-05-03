@@ -12,7 +12,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/register', { email, password, role, name });
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, { email, password, role, name });
       alert('Registered successfully! Please log in.');
       navigate('/login');
     } catch (error) {

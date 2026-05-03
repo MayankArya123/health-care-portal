@@ -2,6 +2,9 @@
 .github
 node_modules/
 */node_modules/
+initdb.js
+package-lock.json
+
 
 # Environment variables
 .env

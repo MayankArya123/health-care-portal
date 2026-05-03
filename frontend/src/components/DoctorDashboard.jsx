@@ -33,7 +33,7 @@ function DoctorDashboard({ user }) {
 
   const fetchPatients = async () => {
     const token = localStorage.getItem('token');
-    const res = await axios.get('http://localhost:5000/patients', {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/patients`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setPatients(res.data);
@@ -43,7 +43,7 @@ function DoctorDashboard({ user }) {
     if (!selectedPatient || !reportText.trim()) return;
 
     const token = localStorage.getItem('token');
-    await axios.post('http://localhost:5000/reports', {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reports`, {
       patientId: selectedPatient.id,
       reportText
     }, {
@@ -57,7 +57,7 @@ function DoctorDashboard({ user }) {
 
   const fetchVitals = async (patientId) => {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/vitals/${patientId}`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/vitals/${patientId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setVitals(res.data.slice(0, 3));
@@ -69,7 +69,7 @@ function DoctorDashboard({ user }) {
 
   const fetchMessages = async (patientId) => {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/messages/${user.id}`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/messages/${user.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setMessages(res.data.filter(m => m.sender_id === patientId || m.receiver_id === patientId));
@@ -84,7 +84,7 @@ function DoctorDashboard({ user }) {
       receiverId: selectedPatient.id,
       message: newMessage
     };
-    await axios.post('http://localhost:5000/messages', messageData, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/messages`, messageData, {
       headers: { Authorization: `Bearer ${token}` }
     });
     socketRef.current.emit('sendMessage', messageData);

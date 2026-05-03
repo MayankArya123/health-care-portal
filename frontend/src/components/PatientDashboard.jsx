@@ -38,7 +38,7 @@ function PatientDashboard({ user }) {
 
   const fetchVitals = async () => {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/vitals/${user.id}`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/vitals/${user.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setVitals(res.data);
@@ -46,7 +46,7 @@ function PatientDashboard({ user }) {
 
   const fetchReports = async () => {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/reports/${user.id}`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reports/${user.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setReports(res.data);
@@ -54,7 +54,7 @@ function PatientDashboard({ user }) {
 
   const fetchMessages = async () => {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://localhost:5000/messages/${user.id}`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/messages/${user.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setMessages(res.data);
@@ -63,7 +63,7 @@ function PatientDashboard({ user }) {
   const fetchAssignedDoctor = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.get('http://localhost:5000/assigned-doctor', {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/assigned-doctor`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data) {
@@ -77,7 +77,7 @@ function PatientDashboard({ user }) {
   const handleSubmitVitals = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const res = await axios.post('http://localhost:5000/vitals', {
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/vitals`, {
       heartRate: parseInt(heartRate, 10),
       bloodPressureSystolic: parseInt(bpSys, 10),
       bloodPressureDiastolic: parseInt(bpDia, 10),
@@ -118,7 +118,7 @@ function PatientDashboard({ user }) {
       message: newMessage
     };
 
-    await axios.post('http://localhost:5000/messages', messageData, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/messages`, messageData, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
