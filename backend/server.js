@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [process.env.FRONTEND_URL],
     methods: ["GET", "POST"]
   }
 });
@@ -48,7 +48,7 @@ const assignDefaultDoctor = async (patientId) => {
 };
 
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174"]
+  origin: [process.env.FRONTEND_URL]
 }));
 app.use(express.json());
 
